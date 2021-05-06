@@ -9,6 +9,12 @@ app.use(express.static('public'))
 
 app.get('/', (request, response) => response.render('index', { breweries }))
 
+app.get('/brewery/:id', (request, response) => {
+  const season = breweries.find((brewery) => brewery.id === parseInt(request.params.id))
+
+  return response.render('brewery')
+})
+
 app.all('*', (request, response) => {
   return response.sendStatus(404)
 })
