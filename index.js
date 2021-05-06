@@ -6,7 +6,7 @@ const app = express()
 app.set('view engine', 'pug')
 app.use(express.static('public'))
 
-app.get('/', getAllBreweries)
+app.get('/', (request, response) => response.render('index'))
 
 app.all('*', (request, response) => {
   return response.sendStatus(404)
