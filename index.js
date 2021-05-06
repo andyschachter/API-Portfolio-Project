@@ -10,9 +10,9 @@ app.use(express.static('public'))
 app.get('/', (request, response) => response.render('index', { breweries }))
 
 app.get('/brewery/:id', (request, response) => {
-  const season = breweries.find((brewery) => brewery.id === parseInt(request.params.id))
+  const brewery = breweries.find((brewery) => brewery.id === parseInt(request.params.id))
 
-  return response.render('brewery')
+  return response.render('brewery', { brewery })
 })
 
 app.all('*', (request, response) => {
