@@ -5,7 +5,7 @@ html
     ul
       for brewery in breweries
         li 
-          img(src=brewery.logo, class= 'breweryLogo', alt= brewery.name)
-          div
-          a(href=`/brewery/${brewery.id}`)= brewery.name
+          a(href=`/brewery/${brewery.id}`)
+            img(src=brewery.logo, class= 'breweryLogo', alt= brewery.name)
+            p= brewery.name
 
