@@ -10,17 +10,22 @@ ul {
 }
 
 .breweryLogo {
-  padding-top: 75px;
+  padding-bottom: 25px;
   width: 250px
 }
 
 a:link {
   text-decoration: none;
   color:maroon;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 .indexHeader {
   color:maroon;
   font-size: 75px;
+}
+
+.docHeader, h2 {
+  color:maroon;
+  font-size: 40px;
 }
