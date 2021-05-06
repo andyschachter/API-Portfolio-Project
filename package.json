@@ -21,8 +21,11 @@
   },
   "homepage": "https://github.com/andyschachter/API-Portfolio-Project#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "pug": "^3.0.2"
+    "mysql2": "^2.2.5",
+    "pug": "^3.0.2",
+    "sequelize": "^6.6.2"
   },
   "devDependencies": {
     "eslint": "^7.25.0",
