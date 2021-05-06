@@ -1,8 +1,6 @@
-const models = require('../models')
+const breweries = require('../breweries')
 
-const getAllBreweries = async (request, response) => {
-  const breweries = await models.breweries.findAll()
-
+const getAllBreweries = (request, response) => {
   return response.send(breweries)
 }
 
