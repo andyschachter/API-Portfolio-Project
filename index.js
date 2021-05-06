@@ -1,9 +1,12 @@
 const express = require('express')
+const { getAllBreweries } = require('./controller/breweries')
 
 const app = express()
 
 app.set('view engine', 'pug')
 app.use(express.static('public'))
+
+app.get('/', getAllBreweries)
 
 app.all('*', (request, response) => {
   return response.sendStatus(404)
