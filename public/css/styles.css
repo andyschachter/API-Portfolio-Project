@@ -1,0 +1,14 @@
+body {
+  background-image: url('../sudsBackground.jpg')
+}
+
+ul {
+  text-align: center;
+  list-style: center;
+  list-style-type: none;
+}
+
+.breweryLogo {
+  padding: 50px;
+  width: 250px
+}

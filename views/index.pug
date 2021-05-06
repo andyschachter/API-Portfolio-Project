@@ -2,4 +2,9 @@ html
   include partials/head.pug 
   body 
     h1 Maine Breweries API
+    ul
+      for brewery in breweries
+        li
+          a(href=`/brewery/${brewery.id}`)= brewery.name 
+          img(src=brewery.logo, class= 'breweryLogo' )
 
