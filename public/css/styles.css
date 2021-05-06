@@ -1,5 +1,6 @@
 body {
-  background-image: url('../sudsBackground.jpg')
+  background-image: url('../sudsBackground.jpg');
+  text-align: center;
 }
 
 ul {
@@ -9,6 +10,17 @@ ul {
 }
 
 .breweryLogo {
-  padding: 50px;
+  padding-top: 75px;
   width: 250px
+}
+
+a:link {
+  text-decoration: none;
+  color:maroon;
+  font-size: 30px;
+}
+
+.indexHeader {
+  color:maroon;
+  font-size: 75px;
 }
