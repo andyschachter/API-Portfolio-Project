@@ -1,0 +1,15 @@
+html
+  include partials/head.pug 
+  body 
+    h1 Maine Breweries API
+    h2
+      a(href='/documentation', class= 'docHeader')
+        p API Documentation
+    h2 Breweries
+    ul
+      for brewery in breweries
+        li 
+          a(href=`/brewery/${brewery.breweryId}`, class= 'breweryName')
+            p= brewery.name
+            img(src=brewery.logo, class= 'breweryLogo', alt= brewery.name)
+

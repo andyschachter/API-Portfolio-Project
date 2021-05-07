@@ -1,0 +1,146 @@
+html
+  include partials/head.pug 
+  body 
+    h1 API Documentation
+    h3 GET /api/breweries
+    table(class= 'example')
+      tr
+        td return all breweries from the API
+      tr
+        td
+          pre.
+            const getAllBreweries = async (request, response) => {
+              const breweries = await models.breweries.findAll()
+              
+              return response.send(breweries)
+            }
+      tr 
+        td Response 
+      tr
+        td
+          pre.
+            {
+              id: 1,
+              name: 'Bissell Brothers',
+              location: 'Portland',
+              logo: (link to brewery logo here),
+              website: 'http://www.bissellbrothers.com',
+              beers: [
+                (beer info here)
+              ]
+            }, {
+              (Breweries continued here)
+            }
+  h3 GET /api/breweries/{breweryId}
+      table(class= 'example')
+        tr
+          td return the brewery with the corresponding breweryId
+        tr
+          td
+            pre.
+              const getBrewery = async (request, response) => {
+                const { breweryId } = request.params
+
+                const brewery = await models.breweries.findOne({ where: { breweryId } })
+
+                return brewery ? response.send(brewery) : response.sendStatus(404)
+              }
+        tr 
+          td Response 
+        tr
+          td
+            pre.
+              {
+                id: 1,
+                name: 'Bissell Brothers',
+                location: 'Portland',
+                logo: (link to brewery logo here),
+                website: 'http://www.bissellbrothers.com',
+                beers: [
+                  (beer info here)
+                ]
+              },
+  h3 GET /api/beer
+      table(class= 'example')
+        tr
+          td return all beers
+        tr
+          td
+            pre.
+              const getAllBeers = async (request, response) => {
+                const beers = await models.beers.findAll()
+              
+                return response.send(beers)
+              }
+        tr 
+          td Response 
+        tr
+          td
+            pre.
+              {
+              beerId: 1,
+              name: 'The Substance',
+              style: 'IPA',
+              abv: '6.6%',
+              logo: (link to beer logo here),
+              }, {
+              beerId: 2,
+              name: 'Lux',
+              style: 'Pale Ale',
+              abv: '5.1%',
+              logo: (link to beer logo here),
+              }, {
+              (beers continued here)
+              }
+  h3 GET /api/beer/{beerId}
+      table(class= 'example')
+        tr
+          td return certain beer
+        tr
+          td
+            pre.
+              const getBeerById = async (request, response) => {
+                const { beerId } = request.params
+
+                const beer = await models.beers.findOne({ where: { beerId })
+        tr 
+          td Response 
+        tr
+          td
+            pre.
+              {
+              beerId: 1,
+              name: 'The Substance',
+              style: 'IPA',
+              abv: '6.6%',
+              logo: (link to beer logo here),
+              },
+  h3 Post /api/brewery
+      table(class= 'example')
+        tr
+          td add new brewery
+        tr
+          td
+            pre.
+              name: "Austin Street Brewing"
+              location: "Portland"
+              logo: (link to logo here)
+              website: "url"
+              beers: [{
+                (insert beers here)
+              }]
+        tr 
+          td Response 
+        tr
+          td
+            pre.
+              "201 Okay"
+              {
+              name: "Austin Street Brewing"
+              location: "Portland"
+              logo: (link to logo here)
+              website: "url"
+              beers: [{
+                (insert beers here)
+              }]
+              }

@@ -1,0 +1,23 @@
+html
+  include partials/head.pug 
+  body 
+    h1= brewery.name
+    h3= `Location: ${brewery.location}`
+    a(href=brewery.website, class= 'website')
+      p= brewery.website
+    table
+      caption Beers
+      thead 
+        tr
+          th Name
+          th Style
+          th ABV
+      tbody 
+        for beer in brewery.beers 
+          tr
+            td(class="beer")= beer.name 
+            td(class="beer")= beer.style
+            td(class="beer")= beer.abv  
+            td 
+              img(src=beer.logo, class= 'beerLogo', alt= beer.name)
+      

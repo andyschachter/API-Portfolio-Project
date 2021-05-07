@@ -1,0 +1,35 @@
+{
+  "name": "api-portfolio-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npm run lint:pug && npm run lint:eslint",
+    "lint:pug": "pug-lint .",
+    "lint:eslint": "eslint --format codeframe ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andyschachter/API-Portfolio-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andyschachter/API-Portfolio-Project/issues"
+  },
+  "homepage": "https://github.com/andyschachter/API-Portfolio-Project#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "pug": "^3.0.2",
+    "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0",
+    "nodemon": "^2.0.7",
+    "pug-lint": "^2.6.0"
+  }
+}
