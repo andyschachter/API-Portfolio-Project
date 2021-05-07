@@ -56,3 +56,10 @@ caption {
 .beerLogo {
   height: 125px;
 }
+
+pre {
+  text-align: left;
+  font-size: 15px;
+  background-color: maroon;
+  color: white
+}

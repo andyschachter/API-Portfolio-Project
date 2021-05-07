@@ -1,21 +1,17 @@
 const express = require('express')
 const breweries = require('./breweries')
-const { getAllBreweries } = require('./controller/breweries')
+const { getAllBreweries, getBreweryById, showDocumentation } = require('./controller/breweries')
 
 const app = express()
 
 app.set('view engine', 'pug')
 app.use(express.static('public'))
 
-app.get('/', (request, response) => response.render('index', { breweries }))
+app.get('/', getAllBreweries)
 
-app.get('/brewery/:id', (request, response) => {
-  const brewery = breweries.find((brewery) => brewery.id === parseInt(request.params.id))
+app.get('/brewery/:id', getBreweryById)
 
-  return response.render('brewery', { brewery })
-})
-
-app.get('/documentation', (request, response) => response.render('documentation'))
+app.get('/documentation', showDocumentation)
 
 app.all('*', (request, response) => {
   return response.sendStatus(404)
