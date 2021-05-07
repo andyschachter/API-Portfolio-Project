@@ -15,6 +15,8 @@ app.get('/brewery/:id', (request, response) => {
   return response.render('brewery', { brewery })
 })
 
+app.get('/documentation', (request, response) => response.render('documentation'))
+
 app.all('*', (request, response) => {
   return response.sendStatus(404)
 })
