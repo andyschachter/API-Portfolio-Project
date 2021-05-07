@@ -4,12 +4,12 @@ html
     h1 Maine Breweries API
     h2
       a(href='/apidocs', class= 'docHeader')
-        p Documentation
+        p API Documentation
     h2 Breweries
     ul
       for brewery in breweries
         li 
-          a(href=`/brewery/${brewery.id}`)
+          a(href=`/brewery/${brewery.id}`, class= 'breweryName')
             p= brewery.name
             img(src=brewery.logo, class= 'breweryLogo', alt= brewery.name)
 
