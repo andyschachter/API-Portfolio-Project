@@ -2,6 +2,9 @@ html
   include partials/head.pug 
   body 
     h1= brewery.name
+    h4
+      a(href='/', class= 'backHome')
+        p Return Home
     h3= `Location: ${brewery.location}`
     a(href=brewery.website, class= 'website')
       p= brewery.website

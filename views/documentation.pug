@@ -2,6 +2,9 @@ html
   include partials/head.pug 
   body 
     h1 API Documentation
+    h4
+      a(href='/', class= 'backHome')
+        p Return Home
     h3 GET /api/breweries
     table(class= 'example')
       tr
@@ -31,7 +34,7 @@ html
             }, {
               (Breweries continued here)
             }
-  h3 GET /api/breweries/{breweryId}
+  h3 GET /api/brewery/{breweryId}
       table(class= 'example')
         tr
           td return the brewery with the corresponding breweryId

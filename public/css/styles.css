@@ -10,6 +10,11 @@ ul {
   list-style-type: none;
 }
 
+a {
+  color:maroon;
+  text-decoration: none;
+}
+
 .breweryLogo {
   padding-bottom: 25px;
   width: 250px
@@ -30,14 +35,10 @@ h2 {
 }
 
 .docHeader {
-  color:maroon;
-  text-decoration: none;
   font-size: 30px;
 }
 
 h3, .website {
-  color:maroon;
-  text-decoration: none;
   font-size: 25px;
 }
 
