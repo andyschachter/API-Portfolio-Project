@@ -34,10 +34,10 @@ html
             }, {
               (Breweries continued here)
             }
-  h3 GET /api/brewery/{breweryId}
+  h3 GET /api/brewery/{brewerySlug}
       table(class= 'example')
         tr
-          td return the brewery with the corresponding breweryId
+          td return the brewery with the corresponding name or id
         tr
           td
             pre.
@@ -95,15 +95,15 @@ html
               }, {
               (beers continued here)
               }
-  h3 GET /api/beer/{beerId}
+  h3 GET /api/beer/{beerSlug}
       table(class= 'example')
         tr
-          td return certain beer
+          td return certain beer with corresponding name or id
         tr
           td
             pre.
-              const getBeerById = async (request, response) => {
-                const { beerId } = request.params
+              const getBeerBySlug = async (request, response) => {
+                const { beerSlug } = request.params
 
                 const beer = await models.beers.findOne({ where: { beerId })
         tr 
