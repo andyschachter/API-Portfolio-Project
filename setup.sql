@@ -2,7 +2,7 @@ CREATE DATABASE breweriesApi;
 
 CREATE USER 'beerUser'@'localhost' IDENTIFIED BY 'password456!';
 
-GRANT ALL ON breweriesApi.* TO 'brewUser'@'localhost';
+GRANT ALL ON breweriesApi.* TO 'beerUser'@'localhost';
 
 USE breweriesApi;
 
