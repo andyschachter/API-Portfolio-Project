@@ -1,0 +1,219 @@
+html
+  include partials/head.pug 
+  body 
+    h1 API Documentation
+    h4
+      a(href='/', class= 'backHome')
+        p Return Home
+    h3 GET /api/breweries
+    table(class= 'example')
+      tr
+        td return all breweries from the API
+      tr
+        td
+          pre.
+            const getBreweries = async (request, response) => {
+              const breweries = await models.Breweries.findAll({
+                attributes: ['id', 'name', 'location', 'logo', 'website'],
+                include: [{
+                  model: models.Beers,
+                  attributes: ['id', 'name', 'style', 'abv', 'logo', 'breweryId']
+              }]
+            })
+
+            return response.send(breweries)
+      tr 
+        td Response 
+      tr
+        td
+          pre.
+            {
+              id: 1,
+              name: 'Bissell Brothers',
+              location: 'Portland',
+              logo: (link to brewery logo here),
+              website: 'http://www.bissellbrothers.com',
+              beers: [
+                (beer info here)
+              ]
+            }, {
+              (Breweries continued here)
+            }
+  h3 GET /api/brewery/{breweryName}
+      table(class= 'example')
+        tr
+          td return the brewery with the corresponding name (fuzzy matched)
+        tr
+          td
+            pre.
+              const getBreweryByName = async (request, response) => {
+                const { name } = request.params
+
+                const brewery = await models.Breweries.findAll({
+                  attributes: ['id', 'name', 'location', 'logo', 'website'],
+                  where: {
+                    name: { [models.Sequelize.Op.like]: `%${name}%` }
+                },
+                include: [{
+                  model: models.Beers,
+                  attributes: ['id', 'name', 'style', 'abv', 'logo', 'breweryId']
+                }]
+              })
+
+                return brewery
+                  ? response.send(brewery)
+                  : response.sendStatus(404)
+              }
+        tr 
+          td Response 
+        tr
+          td
+            pre.
+              {
+                id: 1,
+                name: 'Bissell Brothers',
+                location: 'Portland',
+                logo: (link to brewery logo here),
+                website: 'http://www.bissellbrothers.com',
+                beers: [
+                  (beer info here)
+                ]
+              }, {
+                (Breweries continued here)
+              }
+  h3 GET /api/beer
+      table(class= 'example')
+        tr
+          td return all beers
+        tr
+          td
+            pre.
+              const getAllBeers = async (request, response) => {
+                const beers = await models.beers.findAll({
+                  attributes: ['id', 'name', 'style', 'abv', 'logo', 'breweryId'],
+                })
+              
+                return response.send(beers)
+              }
+        tr 
+          td Response 
+        tr
+          td
+            pre.
+              {
+              beerId: 1,
+              name: 'The Substance',
+              style: 'IPA',
+              abv: '6.6%',
+              logo: (link to beer logo here),
+              }, {
+              beerId: 2,
+              name: 'Lux',
+              style: 'Pale Ale',
+              abv: '5.1%',
+              logo: (link to beer logo here),
+              }, {
+              (beers continued here)
+              }
+  h3 GET /api/beer/{beerNameOrId}
+      table(class= 'example')
+        tr
+          td return certain beer with corresponding name or id. Fuzzy matched for partial names.
+        tr
+          td
+            pre.
+              const getBeerByNameOrId = async (request, response) => {
+                const { identifier } = request.params
+
+                const beer = await models.Beers.findAll({
+                  attributes: ['id', 'name', 'style', 'abv', 'logo', 'breweryId'],
+                  where: {
+                    [models.Sequelize.Op.or]: [
+                      { id: identifier },
+                      { name: { [models.Sequelize.Op.like]: `%${identifier}%` } },
+                    ]
+                  },
+                  include: [{
+                    model: models.Breweries,
+                    attributes: ['id', 'name', 'location', 'logo', 'website'],
+                  }]
+                })
+
+                return beer
+                  ? response.send(beer)
+                  : response.sendStatus(404)
+        tr 
+          td Response 
+        tr
+          td
+            pre.
+              {
+              beerId: 1,
+              name: 'The Substance',
+              style: 'IPA',
+              abv: '6.6%',
+              logo: (link to beer logo here),
+              breweryId: 1
+              brewery: {brewery info here}
+              },
+    h3 GET /api/style/{styleName}
+      table(class= 'example')
+        tr
+          td return certain beers with corresponding style. Fuzzy matched for partial names.
+        tr
+          td
+            pre.
+              const getBeerByStyle  = async (request, response) => {
+                const { style } = request.params
+
+                const beer = await models.Beers.findAll({
+                  attributes: ['id', 'name', 'style', 'abv', 'logo', 'breweryId'],
+                  where: {
+                    { style: { [models.Sequelize.Op.like]: `%${style}%` } },
+                  include: [{
+                    model: models.Breweries,
+                    attributes: ['id', 'name', 'location', 'logo', 'website'],
+                  }]
+                })
+
+                return beer
+                  ? response.send(beer)
+                  : response.sendStatus(404)
+        tr 
+          td Response 
+        tr
+          td
+            pre.
+              {
+              beerId: 1,
+              name: 'The Substance',
+              style: 'IPA',
+              abv: '6.6%',
+              logo: (link to beer logo here),
+              breweryId: 1
+              brewery: {brewery info here}
+              },
+              { IPA beers continued here}
+  h3 Post /api/brewery
+      table(class= 'example')
+        tr
+          td add new brewery
+        tr
+          td
+            pre.
+              name: "Austin Street Brewing"
+              location: "Portland"
+              logo: (link to logo here)
+              website: "url"
+        tr 
+          td Response 
+        tr
+          td
+            pre.
+              "201 Okay"
+              {
+              name: "Austin Street Brewing"
+              location: "Portland"
+              logo: (link to logo here)
+              website: "url"
+              }

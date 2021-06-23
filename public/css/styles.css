@@ -1,0 +1,66 @@
+body {
+  background-image: url('../sudsBackground.jpg');
+  text-align: center;
+  color:maroon;
+}
+
+ul {
+  text-align: center;
+  list-style: center;
+  list-style-type: none;
+}
+
+a {
+  color:maroon;
+  text-decoration: none;
+}
+
+.breweryLogo {
+  padding-bottom: 25px;
+  width: 250px
+}
+
+.breweryName {
+  text-decoration: none;
+  color:maroon;
+  font-size: 20px;
+}
+
+h1 {
+  font-size: 75px;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+.docHeader {
+  font-size: 30px;
+}
+
+h3, .website {
+  font-size: 25px;
+}
+
+table {
+  font-size: 20px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+caption {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.beerLogo {
+  height: 125px;
+}
+
+pre {
+  text-align: left;
+  font-size: 15px;
+  background-color: maroon;
+  color: white
+}

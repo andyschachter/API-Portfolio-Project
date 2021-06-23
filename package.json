@@ -1,0 +1,38 @@
+{
+  "name": "api-portfolio-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:server": "./node_modules/.bin/env-cmd ./node_modules/.bin/nodemon index.js",
+    "dev:migrate": "env-cmd ./node_modules/.bin/sequelize db:migrate --env development --config ./config/sequelize.js",
+    "test": "./node_modules/.bin/mocha tests/**/*.test.js",
+    "lint": "npm run lint:pug && npm run lint:eslint",
+    "lint:pug": "pug-lint .",
+    "lint:eslint": "eslint --format codeframe ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andyschachter/API-Portfolio-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andyschachter/API-Portfolio-Project/issues"
+  },
+  "homepage": "https://github.com/andyschachter/API-Portfolio-Project#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "pug": "^3.0.2",
+    "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "eslint": "^7.25.0",
+    "nodemon": "^2.0.7",
+    "pug-lint": "^2.6.0"
+  }
+}
