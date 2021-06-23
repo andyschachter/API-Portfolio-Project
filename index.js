@@ -1,6 +1,7 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const {
-  renderAllBreweries, renderBreweryById, showDocumentation, getBreweries, getBreweryBySlug
+  renderAllBreweries, renderBreweryById, showDocumentation, getBreweries, getBreweryBySlug, addNewBrewery
 } = require('./controller/breweries')
 
 const { getBeers, getBeerByNameOrId, getBeerByStyle } = require('./controller/beers')
@@ -14,8 +15,6 @@ app.get('/', renderAllBreweries)
 
 app.get('/brewery/:id', renderBreweryById)
 
-app.get('/documentation', showDocumentation)
-
 app.get('/api/brewery/', getBreweries)
 
 app.get('/api/brewery/:slug', getBreweryBySlug)
@@ -25,6 +24,12 @@ app.get('/api/beer/', getBeers)
 app.get('/api/beer/:identifier', getBeerByNameOrId)
 
 app.get('/api/style/:style', getBeerByStyle)
+
+app.get('/documentation', showDocumentation)
+
+app.use(bodyParser.json())
+
+app.post('/brewery', addNewBrewery)
 
 app.all('*', (request, response) => {
   return response.sendStatus(404)

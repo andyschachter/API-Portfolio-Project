@@ -28,26 +28,42 @@ const renderBreweryById = async (request, response) => {
 const showDocumentation = (request, response) => response.render('documentation')
 
 const getBreweries = async (request, response) => {
-  const breweries = await models.Breweries.findAll({
-    include: [{ model: models.Beers }]
-  })
+  try {
+    const breweries = await models.Breweries.findAll({
+      attributes: ['id', 'name', 'location', 'logo', 'website'],
+      include: [{
+        model: models.Beers,
+        attributes: ['id', 'name', 'style', 'abv', 'logo', 'breweryId']
+      }]
+    })
 
-  return response.send(breweries)
+    return response.send(breweries)
+  } catch (error) {
+    return response.status(500).send('Unable to retrieve brewery list')
+  }
 }
 
 const getBreweryBySlug = async (request, response) => {
-  const { slug } = request.params
+  try {
+    const { slug } = request.params
 
-  const brewery = await models.Breweries.findAll({
-    where: {
-      name: { [models.Sequelize.Op.like]: `%${slug}%` }
-    },
-    include: [{ model: models.Beers }]
-  })
+    const brewery = await models.Breweries.findAll({
+      attributes: ['id', 'name', 'location', 'logo', 'website'],
+      where: {
+        name: { [models.Sequelize.Op.like]: `%${slug}%` }
+      },
+      include: [{
+        model: models.Beers,
+        attributes: ['id', 'name', 'style', 'abv', 'logo', 'breweryId']
+      }]
+    })
 
-  return brewery
-    ? response.send(brewery)
-    : response.sendStatus(404)
+    return brewery
+      ? response.send(brewery)
+      : response.sendStatus(404)
+  } catch (error) {
+    return response.status(500).send('Unable to retrieve brewery, please try again')
+  }
 }
 
 const addNewBrewery = async (request, response) => {
