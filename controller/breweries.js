@@ -6,7 +6,7 @@ const renderAllBreweries = async (request, response) => {
 
     response.render('index', { breweries })
   } catch (error) {
-    return response.status(500).send('Unable to retrieve brewery list')
+    return response.status(500).send('Unable to retrieve home page')
   }
 }
 
@@ -21,7 +21,7 @@ const renderBreweryById = async (request, response) => {
 
     return response.render('brewery', { brewery })
   } catch (error) {
-    return response.status(500).send('Unable to retrieve brewery')
+    return response.status(500).send('Unable to retrieve brewery page')
   }
 }
 
@@ -50,10 +50,34 @@ const getBreweryBySlug = async (request, response) => {
     : response.sendStatus(404)
 }
 
+const addNewBrewery = async (request, response) => {
+  try {
+    const {
+      name, location, logo, website
+    } = request.body
+
+    if (!name || !location || !logo || !website) {
+      return response.status(400)
+        .send('The following fields are required: name, location, logo, website')
+    }
+
+    const newBrewery = {
+      name, location, logo, website
+    }
+
+    const brewery = await models.Breweries.create(newBrewery)
+
+    return response.status(201).send(brewery)
+  } catch (error) {
+    return response.status(500).send('Unable to add new brewery, please try again')
+  }
+}
+
 module.exports = {
   renderAllBreweries,
   renderBreweryById,
   showDocumentation,
   getBreweryBySlug,
-  getBreweries
+  getBreweries,
+  addNewBrewery
 }
