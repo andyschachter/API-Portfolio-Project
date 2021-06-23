@@ -115,17 +115,33 @@ html
               }, {
               (beers continued here)
               }
-  h3 GET /api/beer/{beerSlug}
+  h3 GET /api/beer/{beerNameOrId}
       table(class= 'example')
         tr
-          td return certain beer with corresponding name or id
+          td return certain beer with corresponding name or id. Fuzzy matched for partial names.
         tr
           td
             pre.
-              const getBeerBySlug = async (request, response) => {
-                const { beerSlug } = request.params
+              const getBeerByNameOrId = async (request, response) => {
+                const { identifier } = request.params
 
-                const beer = await models.beers.findOne({ where: { beerId })
+                const beer = await models.Beers.findAll({
+                  attributes: ['id', 'name', 'style', 'abv', 'logo', 'breweryId'],
+                  where: {
+                    [models.Sequelize.Op.or]: [
+                      { id: identifier },
+                      { name: { [models.Sequelize.Op.like]: `%${identifier}%` } },
+                    ]
+                  },
+                  include: [{
+                    model: models.Breweries,
+                    attributes: ['id', 'name', 'location', 'logo', 'website'],
+                  }]
+                })
+
+                return beer
+                  ? response.send(beer)
+                  : response.sendStatus(404)
         tr 
           td Response 
         tr
@@ -137,7 +153,47 @@ html
               style: 'IPA',
               abv: '6.6%',
               logo: (link to beer logo here),
+              breweryId: 1
+              brewery: {brewery info here}
               },
+    h3 GET /api/style/{styleName}
+      table(class= 'example')
+        tr
+          td return certain beers with corresponding style. Fuzzy matched for partial names.
+        tr
+          td
+            pre.
+              const getBeerByStyle  = async (request, response) => {
+                const { style } = request.params
+
+                const beer = await models.Beers.findAll({
+                  attributes: ['id', 'name', 'style', 'abv', 'logo', 'breweryId'],
+                  where: {
+                    { style: { [models.Sequelize.Op.like]: `%${style}%` } },
+                  include: [{
+                    model: models.Breweries,
+                    attributes: ['id', 'name', 'location', 'logo', 'website'],
+                  }]
+                })
+
+                return beer
+                  ? response.send(beer)
+                  : response.sendStatus(404)
+        tr 
+          td Response 
+        tr
+          td
+            pre.
+              {
+              beerId: 1,
+              name: 'The Substance',
+              style: 'IPA',
+              abv: '6.6%',
+              logo: (link to beer logo here),
+              breweryId: 1
+              brewery: {brewery info here}
+              },
+              { IPA beers continued here}
   h3 Post /api/brewery
       table(class= 'example')
         tr
