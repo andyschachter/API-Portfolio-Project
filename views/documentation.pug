@@ -37,16 +37,23 @@ html
   h3 GET /api/brewery/{brewerySlug}
       table(class= 'example')
         tr
-          td return the brewery with the corresponding name or id
+          td return the brewery with the corresponding name (fuzzy matched)
         tr
           td
             pre.
-              const getBrewery = async (request, response) => {
-                const { breweryId } = request.params
+              const getBreweryBySlug = async (request, response) => {
+                const { slug } = request.params
 
-                const brewery = await models.breweries.findOne({ where: { breweryId } })
+                const brewery = await models.Breweries.findAll({
+                  where: {
+                    name: { [models.Sequelize.Op.like]: `%${slug}%` }
+                },
+                include: [{ model: models.Beers }]
+                })
 
-                return brewery ? response.send(brewery) : response.sendStatus(404)
+                return brewery
+                  ? response.send(brewery)
+                  : response.sendStatus(404)
               }
         tr 
           td Response 

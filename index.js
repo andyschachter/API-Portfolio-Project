@@ -1,16 +1,22 @@
 const express = require('express')
-const { getAllBreweries, getBreweryById, showDocumentation } = require('./controller/breweries')
+const {
+  renderAllBreweries, renderBreweryById, showDocumentation, getBreweries, getBreweryBySlug
+} = require('./controller/breweries')
 
 const app = express()
 
 app.set('view engine', 'pug')
 app.use(express.static('public'))
 
-app.get('/', getAllBreweries)
+app.get('/', renderAllBreweries)
 
-app.get('/brewery/:id', getBreweryById)
+app.get('/brewery/:id', renderBreweryById)
 
 app.get('/documentation', showDocumentation)
+
+app.get('/api/brewery/', getBreweries)
+
+app.get('/api/brewery/:slug', getBreweryBySlug)
 
 app.all('*', (request, response) => {
   return response.sendStatus(404)

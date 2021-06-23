@@ -1,7 +1,6 @@
-const breweriesMock = require('../breweries')
 const models = require('../models')
 
-const getAllBreweries = async (request, response) => {
+const renderAllBreweries = async (request, response) => {
   try {
     const breweries = await models.Breweries.findAll()
 
@@ -11,8 +10,7 @@ const getAllBreweries = async (request, response) => {
   }
 }
 
-const getBreweryById = async (request, response) => {
-  // const brewery = breweriesMock.find((brewery) => brewery.breweryId === parseInt(request.params.id))
+const renderBreweryById = async (request, response) => {
   try {
     const { id } = request.params
 
@@ -29,8 +27,33 @@ const getBreweryById = async (request, response) => {
 
 const showDocumentation = (request, response) => response.render('documentation')
 
+const getBreweries = async (request, response) => {
+  const breweries = await models.Breweries.findAll({
+    include: [{ model: models.Beers }]
+  })
+
+  return response.send(breweries)
+}
+
+const getBreweryBySlug = async (request, response) => {
+  const { slug } = request.params
+
+  const brewery = await models.Breweries.findAll({
+    where: {
+      name: { [models.Sequelize.Op.like]: `%${slug}%` }
+    },
+    include: [{ model: models.Beers }]
+  })
+
+  return brewery
+    ? response.send(brewery)
+    : response.sendStatus(404)
+}
+
 module.exports = {
-  getAllBreweries,
-  getBreweryById,
-  showDocumentation
+  renderAllBreweries,
+  renderBreweryById,
+  showDocumentation,
+  getBreweryBySlug,
+  getBreweries
 }
