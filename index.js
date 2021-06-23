@@ -29,7 +29,7 @@ app.get('/documentation', showDocumentation)
 
 app.use(bodyParser.json())
 
-app.post('/brewery', addNewBrewery)
+app.post('/api/brewery', addNewBrewery)
 
 app.all('*', (request, response) => {
   return response.sendStatus(404)
