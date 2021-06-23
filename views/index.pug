@@ -9,7 +9,7 @@ html
     ul
       for brewery in breweries
         li 
-          a(href=`/brewery/${brewery.breweryId}`, class= 'breweryName')
+          a(href=`/brewery/${brewery.id}`, class= 'breweryName')
             p= brewery.name
             img(src=brewery.logo, class= 'breweryLogo', alt= brewery.name)
 

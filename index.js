@@ -1,5 +1,4 @@
 const express = require('express')
-const breweries = require('./breweries')
 const { getAllBreweries, getBreweryById, showDocumentation } = require('./controller/breweries')
 
 const app = express()
