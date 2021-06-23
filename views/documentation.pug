@@ -12,11 +12,16 @@ html
       tr
         td
           pre.
-            const getAllBreweries = async (request, response) => {
-              const breweries = await models.breweries.findAll()
-              
-              return response.send(breweries)
-            }
+            const getBreweries = async (request, response) => {
+              const breweries = await models.Breweries.findAll({
+                attributes: ['id', 'name', 'location', 'logo', 'website'],
+                include: [{
+                  model: models.Beers,
+                  attributes: ['id', 'name', 'style', 'abv', 'logo', 'breweryId']
+              }]
+            })
+
+            return response.send(breweries)
       tr 
         td Response 
       tr
@@ -34,22 +39,26 @@ html
             }, {
               (Breweries continued here)
             }
-  h3 GET /api/brewery/{brewerySlug}
+  h3 GET /api/brewery/{breweryName}
       table(class= 'example')
         tr
           td return the brewery with the corresponding name (fuzzy matched)
         tr
           td
             pre.
-              const getBreweryBySlug = async (request, response) => {
-                const { slug } = request.params
+              const getBreweryByName = async (request, response) => {
+                const { name } = request.params
 
                 const brewery = await models.Breweries.findAll({
+                  attributes: ['id', 'name', 'location', 'logo', 'website'],
                   where: {
-                    name: { [models.Sequelize.Op.like]: `%${slug}%` }
+                    name: { [models.Sequelize.Op.like]: `%${name}%` }
                 },
-                include: [{ model: models.Beers }]
-                })
+                include: [{
+                  model: models.Beers,
+                  attributes: ['id', 'name', 'style', 'abv', 'logo', 'breweryId']
+                }]
+              })
 
                 return brewery
                   ? response.send(brewery)
@@ -69,7 +78,9 @@ html
                 beers: [
                   (beer info here)
                 ]
-              },
+              }, {
+                (Breweries continued here)
+              }
   h3 GET /api/beer
       table(class= 'example')
         tr
@@ -78,7 +89,9 @@ html
           td
             pre.
               const getAllBeers = async (request, response) => {
-                const beers = await models.beers.findAll()
+                const beers = await models.beers.findAll({
+                  attributes: ['id', 'name', 'style', 'abv', 'logo', 'breweryId'],
+                })
               
                 return response.send(beers)
               }
@@ -136,9 +149,6 @@ html
               location: "Portland"
               logo: (link to logo here)
               website: "url"
-              beers: [{
-                (insert beers here)
-              }]
         tr 
           td Response 
         tr
@@ -150,7 +160,4 @@ html
               location: "Portland"
               logo: (link to logo here)
               website: "url"
-              beers: [{
-                (insert beers here)
-              }]
               }

@@ -43,14 +43,14 @@ const getBreweries = async (request, response) => {
   }
 }
 
-const getBreweryBySlug = async (request, response) => {
+const getBreweryByName = async (request, response) => {
   try {
-    const { slug } = request.params
+    const { name } = request.params
 
     const brewery = await models.Breweries.findAll({
       attributes: ['id', 'name', 'location', 'logo', 'website'],
       where: {
-        name: { [models.Sequelize.Op.like]: `%${slug}%` }
+        name: { [models.Sequelize.Op.like]: `%${name}%` }
       },
       include: [{
         model: models.Beers,
@@ -93,7 +93,7 @@ module.exports = {
   renderAllBreweries,
   renderBreweryById,
   showDocumentation,
-  getBreweryBySlug,
+  getBreweryByName,
   getBreweries,
   addNewBrewery
 }
